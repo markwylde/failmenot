@@ -6,7 +6,11 @@ const defaultOptions = {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function failmenot (fn, options) {
+function failmenot (options, fn) {
+  if (!fn) {
+    return (fn) => failmenot(options, fn);
+  }
+
   options = Object.assign({}, defaultOptions, options);
 
   let attempts = 0;
@@ -33,6 +37,7 @@ async function failmenot (fn, options) {
       return attempt();
     }
   }
+
   return attempt();
 }
 
