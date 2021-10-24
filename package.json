@@ -1,7 +1,7 @@
 {
   "name": "failmenot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Run a failing function many times until it eventually passes or reaches execution limits.",
   "main": "index.js",
   "scripts": {
     "test": "c8 node test"
