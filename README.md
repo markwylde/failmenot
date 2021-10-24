@@ -15,11 +15,6 @@ npm install --save failmenot
 }
 ```
 
-## Signature
-```
-failmenot -> options -> function -> result
-```
-
 ## Example
 ### Basic Usage
 ```javascript
@@ -45,25 +40,31 @@ const successAttemptNumber = await failmenot(
 ```
 
 ### Curried
+```
+failmenot -> options -> function -> result
+```
+
 ```javascript
-const failmenot = require('failmenot');
+const failmenot = require('failmenot/curried');
 
 let attemptNumber = 1;
 
-const runner = failmenot({
+const applyRetry = failmenot({
   maximumAttempts: 3
 });
 
-const successAttemptNumber = await runner(
-  function () {
+const runner = applyRetry(
+  function (caption) {
     if (attemptNumber < 3) {
       attemptNumber = attemptNumber + 1;
       throw new Error('should fail this attempt');
     }
 
-    return 'worked on ' + attemptNumber;
+    return caption + ' ' + attemptNumber;
   }
 );
+
+const successAttemptNumber = await runner('worked on')
 
 // successAttemptNumber === 'worked on 3';
 ```

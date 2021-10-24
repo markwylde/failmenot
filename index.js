@@ -6,11 +6,7 @@ const defaultOptions = {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-function failmenot (options, fn) {
-  if (!fn) {
-    return (fn) => failmenot(options, fn);
-  }
-
+function failmenot (options, fn, ...args) {
   options = Object.assign({}, defaultOptions, options);
 
   let attempts = 0;
@@ -20,7 +16,7 @@ function failmenot (options, fn) {
     attempts = attempts + 1;
 
     try {
-      return await fn();
+      return await fn(...args);
     } catch (error) {
       if (options.maximumAttempts && attempts > options.maximumAttempts) {
         error['failmenot:attempts'] = attempts;

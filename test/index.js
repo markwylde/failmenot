@@ -1,5 +1,6 @@
 const test = require('basictap');
 const failmenot = require('../');
+const failmenotCurried = require('../curried');
 
 test('works first time', t => {
   t.plan(2);
@@ -15,18 +16,22 @@ test('works first time', t => {
   });
 });
 
-test('currying works first time', t => {
+test('currying works first time', async t => {
   t.plan(2);
 
-  failmenot({
+  const applyRetry = failmenotCurried({
     maximumAttempts: 10,
     maximumTime: 1000
-  })(function () {
-    t.pass();
-    return 123;
-  }).then(result => {
-    t.equal(result, 123, 'returned value');
   });
+
+  const runner = applyRetry(function (arg) {
+    t.equal(arg, 'testarg');
+    return 123;
+  });
+
+  const result = await runner('testarg');
+
+  t.equal(result, 123, 'returned value');
 });
 
 test('works after maximum attempts', t => {
