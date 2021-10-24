@@ -1,0 +1,20 @@
+{
+  "name": "failmenot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "c8 node test"
+  },
+  "keywords": [],
+  "author": {
+    "email": "me@markwylde.com",
+    "name": "Mark Wylde",
+    "url": "https://github.com/markwylde"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "basictap": "^3.1.0",
+    "c8": "^7.10.0"
+  }
+}
