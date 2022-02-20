@@ -1,6 +1,6 @@
 {
   "name": "failmenot",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Run a failing function many times until it eventually passes or reaches execution limits.",
   "main": "index.js",
   "scripts": {
