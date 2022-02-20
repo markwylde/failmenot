@@ -2,6 +2,8 @@ const test = require('basictap');
 const failmenot = require('../');
 const failmenotCurried = require('../curried');
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 test('works first time', t => {
   t.plan(2);
 
@@ -72,6 +74,23 @@ test('works after maximum time', t => {
   failmenot({
     maximumTime: 250
   }, function () {
+    if (Date.now() - startTime < 250) {
+      throw new Error('should fail this attempt');
+    }
+
+    t.pass();
+  });
+});
+
+test('works with promise', t => {
+  t.plan(1);
+  t.timeout(500);
+
+  const startTime = Date.now();
+  failmenot({
+    maximumTime: 250
+  }, async function () {
+    await sleep(1);
     if (Date.now() - startTime < 250) {
       throw new Error('should fail this attempt');
     }
